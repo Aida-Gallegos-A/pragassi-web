@@ -1058,7 +1058,7 @@ function App() {
         <a className="hero-announce" href="#verifica"><span>Nuevo</span>Verifica · test de confianza desde $400<Arrow /></a>
         <p className="eyebrow">Sector seguridad · México</p>
         <h1 id="hero-title">Contrata<br />con certeza.<br /><em>Sin atajos.</em></h1>
-        <p className="hero-description">Pragassi es el aliado que tu empresa necesita en Recursos Humanos. Estudios de antecedentes a escala nacional y capacitación en normatividad para el sector seguridad.</p>
+        <p className="hero-description">Pragassi es el aliado que tu empresa necesita en Recursos Humanos. Estudios socioeconómicos a escala nacional y capacitación en normatividad para el sector seguridad.</p>
         <div className="hero-actions">
           <a className="explore-button" href="#contacto">Consulta gratuita <Arrow /></a>
           <a className="ghost-button" href="#precios">Ver precios</a>

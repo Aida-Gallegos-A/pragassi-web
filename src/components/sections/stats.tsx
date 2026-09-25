@@ -59,7 +59,7 @@ export function Stats() {
           />
           <Reveal delay={120}>
             <p className="max-w-md text-[17px] leading-relaxed text-muted lg:ml-auto">
-              Estudios de antecedentes a escala nacional combinados con capacitación en normatividad. La única consultora de RR. HH. que hace ambas cosas para el sector seguridad.
+              Estudios socioeconómicos a escala nacional combinados con capacitación en normatividad. La única consultora de RR. HH. que hace ambas cosas para el sector seguridad.
             </p>
           </Reveal>
         </div>

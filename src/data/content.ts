@@ -13,7 +13,7 @@ export const whatsappLink = (text: string) =>
 
 export const STATS = [
   { value: 15, prefix: "", suffix: " años", label: "De operación continua en México, con historial verificable en el sector seguridad privada." },
-  { value: 500, prefix: "+", suffix: "", label: "Empresas atendidas con estudios de antecedentes y procesos de contratación auditados." },
+  { value: 500, prefix: "+", suffix: "", label: "Empresas atendidas con estudios socioeconómicos y procesos de contratación auditados." },
   { value: 7, prefix: "", suffix: " estudios", label: "Tipos de verificación: laboral, crediticio, escolar, telefónico, socioeconómico y más." },
   { value: null, text: "Nacional", prefix: "", suffix: "", label: "Cobertura nacional sin subcontratar etapas críticas del proceso de verificación." },
 ];
@@ -64,7 +64,7 @@ export const STUDY_TYPES = ["Laboral", "Crediticio", "Escolar", "Telefónico", "
 export const SERVICES = [
   {
     id: "antecedentes",
-    title: "Estudios de Antecedentes",
+    title: "Estudios Socioeconómicos",
     subtitle: "Siete tipos de estudio integrados",
     body: "Verificación laboral, crediticia, escolar, telefónica y socioeconómica. Procesos sin atajos aplicados a candidatos del sector seguridad y logística, con cobertura nacional y entrega en plazos acordados desde el primer encargo.",
   },

@@ -9,7 +9,7 @@ const SERVICE_OPTIONS = [
   "Estudio socioeconómico presencial",
   "Estudio especializado",
   "Test de confianza Verifica",
-  "Estudios de antecedentes",
+  "Otro tipo de estudio",
   "Capacitación empresarial",
   "Curso: Integración de la IA en el trabajo administrativo",
   "Reclutamiento y selección",
