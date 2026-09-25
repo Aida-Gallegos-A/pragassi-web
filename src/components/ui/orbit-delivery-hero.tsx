@@ -246,7 +246,7 @@ function usePlanetAsset(onReady) {
             mat.emissiveIntensity = 0.16;
           }
           mat.onBeforeCompile = (shader) => {
-            shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", "#include <map_fragment>\n  float lumaPragassi = dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114));\n  diffuseColor.rgb = max(mix(vec3(lumaPragassi), diffuseColor.rgb, 1.38), 0.0) * 1.06;").replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n  float rimPragassi = pow(1.0 - clamp(dot(normalize(vNormal), vec3(0.0, 0.0, 1.0)), 0.0, 1.0), 3.0);\n  totalEmissiveRadiance += vec3(0.55, 0.86, 1.0) * rimPragassi * 0.85;");
+            shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", "#include <map_fragment>\n  float lumaPragassi = dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114));\n  diffuseColor.rgb = max(mix(vec3(lumaPragassi), diffuseColor.rgb, 1.38), 0.0) * 1.06;");
           };
         }
       });
@@ -822,7 +822,7 @@ __export(PlanetScene_exports, {
 });
 import { useEffect as useEffect5, useMemo, useRef as useRef4, useState as useState3 } from "react";
 import { Canvas as Canvas2, useFrame as useFrame4, useThree as useThree3 } from "@react-three/fiber";
-import { AdditiveBlending, BackSide, Color, MathUtils as MathUtils6, Quaternion as Quaternion8, Vector3 as Vector37 } from "three";
+import { MathUtils as MathUtils6, Quaternion as Quaternion8, Vector3 as Vector37 } from "three";
 function ResponsiveCamera() {
   const { size, camera } = useThree3();
   useEffect5(() => {
@@ -833,7 +833,7 @@ function ResponsiveCamera() {
   return null;
 }
 function World2({ motion, auto, reduced, onReady }) {
-  const planet = useRef4(null), runner = useRef4(null), root = useRef4(null), rim = useRef4(null), halo = useRef4(null), intro = useRef4(0);
+  const planet = useRef4(null), runner = useRef4(null), root = useRef4(null), intro = useRef4(0);
   const asset = usePlanetAsset();
   const [courierReady, setCourierReady] = useState3(false);
   useEffect5(() => {
@@ -858,10 +858,7 @@ function World2({ motion, auto, reduced, onReady }) {
     root.current.position.y = centerY - (1 - rise) * 2.8;
     planet.current.scale.setScalar(2.25 * (0.9 + 0.1 * Math.min(1, t * 1.4)));
     runner.current.visible = t > 0.62;
-    const flash = reduced ? 0 : Math.sin(Math.PI * MathUtils6.clamp((t - 0.55) / 0.45, 0, 1)) * 0.9;
-    const glow = Math.min(1, t * 1.6) + flash;
-    if (rim.current) rim.current.uniforms.uIntensity.value = glow;
-    if (halo.current) halo.current.uniforms.uIntensity.value = glow;
+
     frame.screenUp.copy(up3).applyQuaternion(camera.quaternion);
     for (let i = 0; i < count; i++) {
       const dt = elapsed / count;
@@ -884,31 +881,8 @@ function World2({ motion, auto, reduced, onReady }) {
   }, -1);
   return <group ref={root} position={[0, centerY - 2.8, 0]}>
     <group ref={planet} scale={2.25}>{asset && <primitive object={asset.scene} dispose={null} />}</group>
-    {asset && <Atmosphere rimRef={rim} haloRef={halo} />}
     <group ref={runner} visible={false}><Courier motion={motion} paused={!auto} reduced={reduced} onReady={setCourierReady} /></group>
   </group>;
-}
-// Atmosphere: a Fresnel rim over the planet edge plus a soft halo that fades outward (orthographic camera looks down -Z).
-var PLANET_R = 2.25 * 1.045;
-var HALO_R = 2.25 * 1.3;
-var atmosphereVertex = `varying vec2 vXY; varying vec3 vN; void main(){ vXY = position.xy; vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-function Atmosphere({ rimRef, haloRef }) {
-  const rimUniforms = useMemo(() => ({ uColor: { value: new Color("#bdefff") }, uIntensity: { value: 0 } }), []);
-  const haloUniforms = useMemo(() => ({ uColor: { value: new Color("#38bff0") }, uInner: { value: 2.25 * 0.985 }, uOuter: { value: HALO_R }, uIntensity: { value: 0 } }), []);
-  return <>
-    <mesh renderOrder={2}>
-      <sphereGeometry args={[PLANET_R, 96, 64]} />
-      <shaderMaterial ref={rimRef} uniforms={rimUniforms} transparent premultipliedAlpha depthWrite={false} side={BackSide} blending={AdditiveBlending}
-        vertexShader={atmosphereVertex}
-        fragmentShader={`uniform vec3 uColor; uniform float uIntensity; varying vec3 vN; void main(){ float f = pow(1.0 - abs(vN.z), 2.6) * 1.2 * uIntensity; gl_FragColor = vec4(uColor * f, clamp(f, 0.0, 1.0)); }`} />
-    </mesh>
-    <mesh renderOrder={1}>
-      <sphereGeometry args={[HALO_R, 96, 64]} />
-      <shaderMaterial ref={haloRef} uniforms={haloUniforms} transparent depthWrite={false} side={BackSide}
-        vertexShader={atmosphereVertex}
-        fragmentShader={`uniform vec3 uColor; uniform float uInner; uniform float uOuter; uniform float uIntensity; varying vec2 vXY; void main(){ float d = length(vXY); float t = clamp((d - uInner) / (uOuter - uInner), 0.0, 1.0); float a = pow(1.0 - t, 2.4) * smoothstep(uInner * 0.97, uInner, d) * 0.62 * uIntensity; gl_FragColor = vec4(uColor, a); }`} />
-    </mesh>
-  </>;
 }
 function PlanetScene2(props) {
   const lowPower = renderQuality === "low";
