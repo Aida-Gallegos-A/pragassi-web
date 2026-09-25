@@ -17,7 +17,20 @@ Si pragassi.com está ligado al Creador de sitios web:
 2. Si aparece como sitio del Creador, usa **Cambiar a hosting** o **Desconectar** para que el dominio use el Web Hosting (con carpeta `public_html`). Si no ves la opción, el chat de soporte de Hostinger lo hace en minutos: pídeles *"apuntar pragassi.com a mi plan de Web Hosting en lugar del Creador de sitios"*.
 3. **No toques el subdominio `verifica`**; es un sitio aparte y sigue igual.
 
-## Paso 2 · Subir los archivos
+## Paso 2 (opción A, recomendada) · Publicar desde GitHub
+
+Cada vez que se guarda un cambio en la rama `main`, GitHub compila el sitio y deja la versión final en la rama **`hostinger`** (ver `.github/workflows/deploy-hostinger.yml`). Hostinger publica esa rama.
+
+1. hPanel → pragassi.com → **Avanzado → Git**.
+2. **Repositorio:** `git@github.com:Aida-Gallegos-A/pragassi-web.git` · **Rama:** `hostinger` · **Directorio:** déjalo vacío (se instala en `public_html`).
+   - `public_html` debe estar **vacía**; mueve cualquier archivo viejo a otra carpeta antes.
+3. Como el repositorio es privado, Hostinger muestra una **clave SSH**. Cópiala y agrégala en GitHub → repositorio → *Settings → Deploy keys → Add deploy key* (solo lectura).
+4. Pulsa **Crear** y luego **Desplegar**.
+5. **Despliegue automático:** en la misma pantalla, activa *Auto Deployment* y copia la **URL del webhook**. Agrégala en GitHub → *Settings → Webhooks → Add webhook* (Payload URL = esa URL; lo demás por defecto).
+
+Desde ese momento, cualquier cambio que se guarde en GitHub se publica solo en unos minutos.
+
+## Paso 2 (opción B) · Subir el ZIP a mano
 
 1. hPanel → **Sitios web** → pragassi.com → **Administrador de archivos**.
 2. Abre la carpeta **`public_html`**.
