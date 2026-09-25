@@ -178,7 +178,6 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { FrontSide, Mesh, MeshStandardMaterial, SkinnedMesh, Texture } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 function disposeScene(scene) {
   const textures = /* @__PURE__ */ new Set();
@@ -208,8 +207,8 @@ function usePlanetAsset(onReady) {
   const [error, setError] = useState(null);
   useEffect(() => {
     const abort = new AbortController();
-    const draco = new DRACOLoader().setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/").setDecoderConfig({ type: "wasm" }).setWorkerLimit(2);
-    const loader = new GLTFLoader().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
+    const draco = { dispose() {} };
+    const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     let disposed = false;
     let scene;
     const fetchChecked = async (path) => {
@@ -590,7 +589,6 @@ import { useEffect as useEffect2, useRef, useState as useState2 } from "react";
 import { useFrame } from "@react-three/fiber";
 import { AnimationClip as AnimationClip2, AnimationMixer, Bone as Bone3, LoopRepeat, MathUtils as MathUtils5, Mesh as Mesh3, MeshStandardMaterial as MeshStandardMaterial2, NumberKeyframeTrack, Quaternion as Quaternion6, QuaternionKeyframeTrack, SkinnedMesh as SkinnedMesh3, Vector3 as Vector35, VectorKeyframeTrack } from "three";
 import { GLTFLoader as GLTFLoader2 } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader as DRACOLoader2 } from "three/examples/jsm/loaders/DRACOLoader.js";
 function makeIdle(scene) {
   const tracks = [];
   const breath = new Quaternion6().setFromAxisAngle(new Vector35(1, 0, 0), 9e-3);
@@ -619,8 +617,8 @@ function Courier({ motion, paused, reduced, onReady }) {
   const [error, setError] = useState2(null);
   useEffect2(() => {
     const abort = new AbortController();
-    const draco = new DRACOLoader2().setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/").setDecoderConfig({ type: "wasm" }).setWorkerLimit(1);
-    const loader = new GLTFLoader2().setDRACOLoader(draco).setMeshoptDecoder(MeshoptDecoder);
+    const draco = { dispose() {} };
+    const loader = new GLTFLoader2().setMeshoptDecoder(MeshoptDecoder);
     let cancelled = false;
     let owned;
     onReady?.(false);
