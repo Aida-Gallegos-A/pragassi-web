@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowRight, ArrowUpRight, Check, EyeOff, FileCheck2, Gauge, Handshake, LayoutGrid, Lock, Printer, ShieldCheck, Sparkles } from "lucide-react";
+import { AlertTriangle, ArrowRight, ArrowUpRight, Check, CreditCard, EyeOff, FileCheck2, Gauge, Handshake, LayoutGrid, Lock, Printer, ShieldCheck, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { VERIFICA, whatsappLink } from "@/data/content";
 import { cn } from "@/lib/utils";
@@ -227,6 +227,15 @@ export function Verifica() {
                   {plan.cta}
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                 </a>
+                {"online" in plan && plan.online && (
+                  <a
+                    href={`/solicitud/#${plan.online}`}
+                    className="mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-2 text-[14px] text-muted underline decoration-[#16b1e6]/50 underline-offset-4 transition hover:text-ink"
+                  >
+                    <CreditCard className="size-4 text-[#1b8fd0]" />
+                    Págalo en línea
+                  </a>
+                )}
               </Reveal>
             ))}
           </div>

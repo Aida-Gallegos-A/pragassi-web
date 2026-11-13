@@ -1,0 +1,9 @@
+# Archivos internos que no se deben abrir desde el navegador
+<FilesMatch "^(_lib\.php|pragassi-config.*)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set Cache-Control "no-store"
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>

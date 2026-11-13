@@ -6,3 +6,5 @@ Thumbs.db
 .vscode/
 .claude/settings.local.json
 deploy/
+pragassi-config.php
+public/api/_solicitudes/

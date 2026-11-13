@@ -29,6 +29,7 @@ export const PLANS = [
     features: ["Verificación de datos generales", "Verificación telefónica", "Entorno habitacional", "Referencias personales y vecinales", "Informe ejecutivo"],
     cta: "Solicitar estudio básico",
     message: "Hola Pragassi, me interesa el Estudio Socioeconómico Básico (desde $580 MXN).",
+    online: "basico",
   },
   {
     name: "Presenciales",
@@ -40,6 +41,7 @@ export const PLANS = [
     message: "Hola Pragassi, me interesa el Estudio Socioeconómico Presencial (desde $850 MXN).",
     featured: true,
     tag: "Con visita domiciliaria",
+    online: "presencial",
   },
   {
     name: "Especializados",
@@ -51,6 +53,34 @@ export const PLANS = [
     message: "Hola Pragassi, quiero cotizar un Estudio Especializado.",
   },
 ];
+
+/** Estudios que se pagan en línea (/solicitud/). Los precios que se cobran están en public/api/_lib.php. */
+export const ONLINE_STUDIES = [
+  {
+    id: "basico",
+    name: "Socioeconómico básico",
+    price: 580,
+    description: "Verificación de datos, telefónica, entorno habitacional y referencias.",
+    needs: "Nombre, domicilio y teléfonos de la persona.",
+  },
+  {
+    id: "presencial",
+    name: "Socioeconómico presencial",
+    price: 850,
+    description: "Incluye visita domiciliaria, entrevista a referencias e informe completo.",
+    needs: "Nombre, domicilio y teléfonos de la persona.",
+    featured: true,
+  },
+  {
+    id: "verifica",
+    name: "Test de confianza Verifica",
+    price: 400,
+    description: "35 situaciones laborales, respuesta en 10 minutos y reporte con índice.",
+    needs: "Nombre, celular y correo de la persona.",
+  },
+] as const;
+
+export const payLink = (studyId: string) => `/api/pagar.php?estudio=${studyId}`;
 
 export const GUARANTEES = [
   "Información 100% confidencial",
@@ -168,6 +198,7 @@ export const VERIFICA = {
       features: ["35 situaciones laborales reales", "Respuesta en 10 minutos desde un enlace", "Reporte con índice y seis áreas", "Señales a validar en la entrevista"],
       cta: "Solicitar un test",
       message: "Hola Pragassi, me interesa el test de confianza Verifica (desde $400 MXN).",
+      online: "verifica",
     },
     {
       name: "Paquetes mensuales",

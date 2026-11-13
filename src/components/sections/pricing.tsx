@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, Check, ShieldCheck, Sparkles, Timer, UserRoundCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, CreditCard, ShieldCheck, Sparkles, Timer, UserRoundCheck } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GUARANTEES, PLANS, whatsappLink } from "@/data/content";
@@ -87,6 +87,15 @@ export function Pricing() {
                 {plan.cta}
                 <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
+              {"online" in plan && plan.online && (
+                <a
+                  href={`/solicitud/#${plan.online}`}
+                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-[14px] text-white/70 underline decoration-gold-soft/50 underline-offset-4 transition hover:text-white"
+                >
+                  <CreditCard className="size-4 text-gold-soft" />
+                  ¿Un solo estudio? Págalo en línea
+                </a>
+              )}
             </Reveal>
           ))}
         </div>

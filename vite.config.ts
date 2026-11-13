@@ -8,4 +8,12 @@ export default defineConfig({
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        solicitud: path.resolve(__dirname, "solicitud/index.html"),
+      },
+    },
+  },
 });
